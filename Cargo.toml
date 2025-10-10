@@ -5,7 +5,9 @@ edition = "2024"
 
 description = "shellcode加载器，传入二进制shellcode即可加载到内存中执行"
 license = "MIT" 
-repository = "https://github.com/yourname/shellcode-loader"
+authors = ["hit_ljx@yeah.net"]
+repository = "https://github.com/hbesljx/shellcode-loader.git"
+keywords = ["shellcode", "loader","binary"]
 
 [dependencies]
 windows = { version = "0.52.0", features = ["Win32_Foundation", "Win32_System_Threading", "Win32_System_Memory", "Win32_Security"] }
