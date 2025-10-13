@@ -1,3 +1,7 @@
+mod hook{
+    pub(crate) mod message_box_a_hook;
+}
+
 mod loader{
     pub(crate) mod apc;
 }
@@ -9,11 +13,18 @@ pub mod loader_apc{
     }
 }
 
+pub mod hook_message_box_a_hook{
+    use crate::hook::message_box_a_hook::{message_box_hook};
+    pub fn hook_message_box_a_hook(callback:fn()){
+        let _=message_box_hook(callback);
+    }
+}
+
 #[cfg(test)]
 mod tests{
-    use crate::loader_apc::apc;
+    use crate::{hook_message_box_a_hook::hook_message_box_a_hook, loader_apc::apc};
     #[test]
-    pub fn test_1(){
+    pub fn test_loader_apc(){
         let buf: [u8; 276] = [0xfc,0x48,0x83,0xe4,0xf0,0xe8,0xc0,
         0x00,0x00,0x00,0x41,0x51,0x41,0x50,0x52,0x51,0x56,0x48,0x31,
         0xd2,0x65,0x48,0x8b,0x52,0x60,0x48,0x8b,0x52,0x18,0x48,0x8b,
@@ -39,5 +50,14 @@ mod tests{
         0x6a,0x00,0x59,0x41,0x89,0xda,0xff,0xd5,0x63,0x61,0x6c,0x63,
         0x2e,0x65,0x78,0x65,0x00];
         let _=apc(&buf);
+    }
+
+    #[test]
+    pub fn test_hook_message_box_a_hook(){
+        fn hello(){
+            println!("hello hook!");
+        }
+
+        hook_message_box_a_hook(hello);
     }
 }

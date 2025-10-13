@@ -7,7 +7,17 @@ description = "shellcode加载器，传入二进制shellcode即可加载到内�
 license = "MIT" 
 authors = ["hit_ljx@yeah.net"]
 repository = "https://github.com/hbesljx/shellcode-loader.git"
-keywords = ["shellcode", "loader","binary"]
+keywords = ["shellcode", "loader","binary","hook"]
 
-[dependencies]
-windows = { version = "0.52.0", features = ["Win32_Foundation", "Win32_System_Threading", "Win32_System_Memory", "Win32_Security"] }
+[dependencies.windows]
+version = "0.52.0" 
+features = [
+    "Win32_Foundation", 
+    "Win32_UI", 
+    "Win32_UI_WindowsAndMessaging", 
+    "Win32_System", 
+    "Win32_System_LibraryLoader", 
+    "Win32_System_Threading", 
+    "Win32_System_Memory",
+    "Win32_Security"
+] 
