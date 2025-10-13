@@ -66,6 +66,7 @@ mod tests{
 
     #[test]
     pub fn test_is_sandbox(){
+        //自定义四个常数，当目标系统的某个值小于自定义的常数时，判定为沙箱环境
         const MAX_CPU_COUNT:u32=4;
         const MAX_RAM_SIZE:u32=8;
         const MAX_PROCESS_COUNT:u32=100;

@@ -5,7 +5,7 @@
 - `APC注入`：向挂起的线程的APC队列中添加任务来执行shellcode
 - `hook messageBoxA`：hook messageBoxA函数，在调用messageBoxA时跳转到自定义的函数执行
 
-示例——APC注入：
+示例：APC注入：
 ```
 use shellcode-loader::loader_apc:apc;
 #[test]
@@ -38,7 +38,7 @@ pub fn test_1(){
 }
 ```
 
-示例——hook messageBoxA：
+示例：hook messageBoxA：
 ```
 #[test]
     pub fn test_hook_message_box_a_hook(){
@@ -48,5 +48,22 @@ pub fn test_1(){
         }
 
         hook_message_box_a_hook(hello);
+    }
+```
+
+## 支持以下操作：
+- `沙箱检测`：通过CPU数量、RAM大小、进程数量、磁盘大小来判断是否为沙箱
+
+示例：沙箱检测：
+```
+#[test]
+    pub fn test_is_sandbox(){
+        //自定义四个常数，当目标系统的某个值小于自定义的常数时，判定为沙箱环境
+        const MAX_CPU_COUNT:u32=4;
+        const MAX_RAM_SIZE:u32=8;
+        const MAX_PROCESS_COUNT:u32=100;
+        const MAX_DISK_SIZE:u32=60;
+
+        println!("isSandbox?{}!",is_sandbox(MAX_CPU_COUNT, MAX_RAM_SIZE, MAX_PROCESS_COUNT, MAX_DISK_SIZE));
     }
 ```
