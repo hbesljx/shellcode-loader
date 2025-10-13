@@ -20,7 +20,7 @@ pub mod hook_message_box_a_hook{
     }
 }
 
-mod sandbox;
+pub mod sandbox;
 
 #[cfg(test)]
 mod tests{
