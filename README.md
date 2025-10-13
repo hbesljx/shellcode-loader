@@ -3,8 +3,9 @@
 
 ## 目前支持以下加载方式：
 - `APC注入`：向挂起的线程的APC队列中添加任务来执行shellcode
+- `hook messageBoxA`：hook messageBoxA函数，在调用messageBoxA时跳转到自定义的函数执行
 
-示例：
+示例——APC注入：
 ```
 use shellcode-loader::loader_apc:apc;
 #[test]
@@ -35,4 +36,17 @@ pub fn test_1(){
         0x2e,0x65,0x78,0x65,0x00];
         let _=apc(&buf);
 }
+```
+
+示例——hook messageBoxA：
+```
+#[test]
+    pub fn test_hook_message_box_a_hook(){
+        fn hello(){
+            //你自己定义的任意函数
+            println!("hello hook!");
+        }
+
+        hook_message_box_a_hook(hello);
+    }
 ```

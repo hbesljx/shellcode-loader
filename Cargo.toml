@@ -1,9 +1,9 @@
 [package]
 name = "shellcode-loader"
-version = "0.1.0"
+version = "0.2.0"
 edition = "2024"
 
-description = "shellcode加载器，传入二进制shellcode即可加载到内存中执行"
+description = "shellcode加载器，包含hook加载和loader加载"
 license = "MIT" 
 authors = ["hit_ljx@yeah.net"]
 repository = "https://github.com/hbesljx/shellcode-loader.git"

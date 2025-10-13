@@ -55,6 +55,7 @@ mod tests{
     #[test]
     pub fn test_hook_message_box_a_hook(){
         fn hello(){
+            //你自己定义的任意函数
             println!("hello hook!");
         }
 
