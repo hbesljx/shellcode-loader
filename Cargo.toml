@@ -1,12 +1,12 @@
 [package]
 name = "shellcode-loader"
-version = "0.2.0"
+version = "0.3.0"
 edition = "2024"
 
-description = "shellcode加载器，包含hook加载和loader加载"
+description = "shellcode加载器，通过多种方式加载shellcode并对抗EDR检测"
 license = "MIT" 
 authors = ["hit_ljx@yeah.net"]
-repository = "https://github.com/hbesljx/shellcode-loader.git"
+repository = "https://github.com/hbesljx/shellcode-loader"
 keywords = ["shellcode", "loader","binary","hook"]
 
 [dependencies.windows]
@@ -21,3 +21,5 @@ features = [
     "Win32_System_Memory",
     "Win32_Security"
 ] 
+[dependencies]
+sysinfo = "0.37.2"

