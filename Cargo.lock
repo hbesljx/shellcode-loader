@@ -68,7 +68,7 @@ dependencies = [
 
 [[package]]
 name = "shellcode-loader"
-version = "0.4.0"
+version = "0.5.0"
 dependencies = [
  "sysinfo",
  "windows 0.52.0",
