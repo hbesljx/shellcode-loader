@@ -1,9 +1,33 @@
 # shellcode-loader
 ## 一个在内存中加载二进制shellcode的rust crate
 
-## 目前支持以下加载方式：
+## 目录
 
-### 1.加载器（输入bin文件、字节码直接加载到内存执行）
+- [shellcode-loader](#shellcode-loader)
+  - [一个在内存中加载二进制shellcode的rust crate](#一个在内存中加载二进制shellcode的rust-crate)
+  - [目录](#目录)
+  - [功能特性](#功能特性)
+  - [安装使用](#安装使用)
+  - [加载方式：](#加载方式)
+    - [1.加载器](#1加载器)
+    - [2.hook系统函数](#2hook系统函数)
+  - [对抗操作：](#对抗操作)
+    - [1.沙箱检测：](#1沙箱检测)
+    - [2.obf混淆：](#2obf混淆)
+
+## 功能特性
+加载shellcode或其它代码，尝试绕过EDR检测，包含了多种加载方式以及对抗机制。
+
+## 安装使用
+通过cargo导入即可
+```
+cargo add shellcode-loader
+```
+
+## 加载方式：
+
+### 1.加载器
+输入bin文件、字节码，直接加载到内存执行
 - `APC注入`：向挂起的线程的APC队列中添加任务来执行shellcode
 - `callback调用`：调用合法的Windows函数，将它的回调函数改为我们自己的shellcode从而触发执行
 
@@ -73,7 +97,8 @@ pub fn test_callback(){
     }
 ```
 
-### 2.hook系统函数，跳转到自定义函数执行
+### 2.hook系统函数
+hook系统函数入口点，跳转到自定义函数执行
 - `hook messageBoxA`：hook messageBoxA函数，在调用messageBoxA时跳转到自定义的函数执行
 
 示例：hook messageBoxA：
@@ -90,8 +115,10 @@ use shellcode-loader::hook::hook_message_box_a_hook;
     }
 ```
 
-## 同时支持以下对抗操作：
-### 1.沙箱检测：通过CPU数量、RAM大小、进程数量、磁盘大小来判断是否为沙箱
+## 对抗操作：
+### 1.沙箱检测：
+通过CPU数量、RAM大小、进程数量、磁盘大小来判断是否为沙箱
+
 示例：沙箱检测：
 ```
 use shellcode-loader::sandbox::is_sandbox;
@@ -106,8 +133,10 @@ fn test_is_sandbox(){
 }
 ```
 
-### 2.obf混淆：读取bin文件并混淆，运行时动态解密
-有以下两个函数：
+### 2.obf混淆：
+读取bin文件并混淆，运行时动态解密
+
+包含以下两个函数：
 - `obfuscate_file`：混淆函数，传入bin文件路径、选择的混淆方式，支持以下混淆方式：
   - `ipv4`
   - `ipv6`
