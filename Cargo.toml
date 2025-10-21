@@ -1,6 +1,6 @@
 [package]
 name = "shellcode-loader"
-version = "0.5.0"
+version = "0.6.0"
 edition = "2024"
 
 description = "shellcode加载器，通过多种方式加载shellcode并对抗EDR检测"
@@ -25,3 +25,5 @@ features = [
 ] 
 [dependencies]
 sysinfo = "0.37.2"
+clap = { version = "4.5.0", features = ["derive"] }
+uuid = "1.7.0"

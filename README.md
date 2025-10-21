@@ -91,8 +91,7 @@ use shellcode-loader::hook::hook_message_box_a_hook;
 ```
 
 ## 同时支持以下对抗操作：
-- `沙箱检测`：通过CPU数量、RAM大小、进程数量、磁盘大小来判断是否为沙箱
-
+### 1.沙箱检测：通过CPU数量、RAM大小、进程数量、磁盘大小来判断是否为沙箱
 示例：沙箱检测：
 ```
 use shellcode-loader::sandbox::is_sandbox;
@@ -104,5 +103,32 @@ fn test_is_sandbox(){
     const MAX_DISK_SIZE:u32=60;
 
     println!("isSandbox?{}!",shellcode_loader::sandbox::is_sandbox(MAX_CPU_COUNT, MAX_RAM_SIZE, MAX_PROCESS_COUNT, MAX_DISK_SIZE));
+}
+```
+
+### 2.obf混淆：读取bin文件并混淆，运行时动态解密
+有以下两个函数：
+- `obfuscate_file`：混淆函数，传入bin文件路径、选择的混淆方式，支持以下混淆方式：
+  - `ipv4`
+  - `ipv6`
+  - `mac`
+  - `uuid`
+  - `words`
+- `deobfuscate_file`：解混淆函数，传入混淆后的Vec数组、选择的混淆方式。
+
+
+示例：obf混淆、解混淆：
+```
+use crate::obf::{obfuscate_file,deobfuscate_data};
+#[test]
+pub fn test_obf(){
+    // 1. 读取bin文件并混淆
+    let obfuscated_data = obfuscate_file("./src/obf/test.bin", "words").unwrap();
+        
+    // 2. 解混淆得到字节数组
+    let buf = deobfuscate_data(&obfuscated_data, "words").unwrap();
+        
+    // 3.可以调用其它的函数，传入返回的buf即可，Vec会自动解引用为buf数组无需手动替换
+    apc(&buf);
 }
 ```
