@@ -1,6 +1,6 @@
 [package]
 name = "shellcode-loader"
-version = "0.6.0"
+version = "0.7.0"
 edition = "2024"
 
 description = "shellcode加载器，通过多种方式加载shellcode并对抗EDR检测"
@@ -12,18 +12,16 @@ keywords = ["shellcode", "loader","binary","hook"]
 [dependencies.windows]
 version = "0.52.0" 
 features = [
-    "Win32_Foundation", 
-    "Win32_UI", 
-    "Win32_UI_WindowsAndMessaging", 
-    "Win32_System", 
     "Win32_System_LibraryLoader", 
     "Win32_System_Threading", 
     "Win32_System_Memory",
-    "Win32_Security",
-    "Win32_Globalization",
     "Win32_Foundation",
+    "Win32_System_Diagnostics_Debug", 
+    "Win32_System_SystemServices", 
+    "Win32_System_SystemInformation"    
 ] 
 [dependencies]
 sysinfo = "0.37.2"
 clap = { version = "4.5.0", features = ["derive"] }
 uuid = "1.7.0"
+ntapi = "0.4.0"

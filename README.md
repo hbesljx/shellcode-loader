@@ -1,10 +1,8 @@
 # shellcode-loader
-## 一个在内存中加载二进制shellcode的rust crate
+一个在内存中加载二进制shellcode的rust crate
 
 ## 目录
-
 - [shellcode-loader](#shellcode-loader)
-  - [一个在内存中加载二进制shellcode的rust crate](#一个在内存中加载二进制shellcode的rust-crate)
   - [目录](#目录)
   - [功能特性](#功能特性)
   - [安装使用](#安装使用)
@@ -12,11 +10,14 @@
     - [1.加载器](#1加载器)
     - [2.hook系统函数](#2hook系统函数)
   - [对抗操作：](#对抗操作)
-    - [1.沙箱检测：](#1沙箱检测)
-    - [2.obf混淆：](#2obf混淆)
+    - [1.沙箱检测](#1沙箱检测)
+    - [2.obf混淆](#2obf混淆)
+    - [3.手动解析PEB导入函数](#3手动解析peb导入函数)
 
 ## 功能特性
-加载shellcode或其它代码，尝试绕过EDR检测，包含了多种加载方式以及对抗机制。
+- 提供了多种加载shellcode的方式；
+- 提供了多种对抗机制，包括沙箱检测、多种混淆机制、手动解析PEB机制；
+- crate中所有函数都是通过手动解析PEB导入的，增强了隐蔽性；
 
 ## 安装使用
 通过cargo导入即可
@@ -116,7 +117,7 @@ use shellcode-loader::hook::hook_message_box_a_hook;
 ```
 
 ## 对抗操作：
-### 1.沙箱检测：
+### 1.沙箱检测
 通过CPU数量、RAM大小、进程数量、磁盘大小来判断是否为沙箱
 
 示例：沙箱检测：
@@ -133,7 +134,7 @@ fn test_is_sandbox(){
 }
 ```
 
-### 2.obf混淆：
+### 2.obf混淆
 读取bin文件并混淆，运行时动态解密
 
 包含以下两个函数：
@@ -159,5 +160,30 @@ pub fn test_obf(){
         
     // 3.可以调用其它的函数，传入返回的buf即可，Vec会自动解引用为buf数组无需手动替换
     apc(&buf);
+}
+```
+
+### 3.手动解析PEB导入函数
+通过手动解析IAT和PEB得到要调用的函数地址，代替易被检测的LoadLibraryA和GetProcAddress函数的同时隐藏导入表。
+
+示例：
+```
+#使用时给get_function_address()函数传入dll和函数名即可获取函数的地址
+use crate::iat::get_function_address;
+#[test]
+fn test_iat(){
+    let dll_name="user32.dll";
+    let func_name="MessageBoxA";
+
+    unsafe {
+        let func_address=get_function_address(dll_name, func_name).unwrap();
+
+        let message_box_a_fn: unsafe extern "system" fn(isize, *const u8, *const u8, u32) -> i32 = std::mem::transmute(func_address);
+
+        let title=b"title\0";
+            let text=b"hello world!\0";
+            message_box_a_fn(0,text.as_ptr(),title.as_ptr(),0);
+
+    }
 }
 ```
