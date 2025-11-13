@@ -25,3 +25,4 @@ sysinfo = "0.37.2"
 clap = { version = "4.5.0", features = ["derive"] }
 uuid = "1.7.0"
 ntapi = "0.4.0"
+stegano-util = "0.1.0"

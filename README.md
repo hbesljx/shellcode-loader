@@ -13,6 +13,7 @@
     - [1.沙箱检测](#1沙箱检测)
     - [2.obf混淆](#2obf混淆)
     - [3.手动解析PEB导入函数](#3手动解析peb导入函数)
+    - [4.信息隐藏(图片隐写)](#4信息隐藏图片隐写)
 
 ## 功能特性
 - 提供了多种加载shellcode的方式；
@@ -149,7 +150,7 @@ fn test_is_sandbox(){
 
 示例：obf混淆、解混淆：
 ```
-use crate::obf::{obfuscate_file,deobfuscate_data};
+use shellcode-loader::obf::{obfuscate_file,deobfuscate_data};
 #[test]
 pub fn test_obf(){
     // 1. 读取bin文件并混淆
@@ -165,11 +166,13 @@ pub fn test_obf(){
 
 ### 3.手动解析PEB导入函数
 通过手动解析IAT和PEB得到要调用的函数地址，代替易被检测的LoadLibraryA和GetProcAddress函数的同时隐藏导入表。
+目前提供了以下函数：
+- `get_function_address(dll_name: &str, function_name: &str) -> Result<*mut c_void>`
 
 示例：
 ```
 #使用时给get_function_address()函数传入dll和函数名即可获取函数的地址
-use crate::iat::get_function_address;
+use shellcode-loader::iat::get_function_address;
 #[test]
 fn test_iat(){
     let dll_name="user32.dll";
@@ -187,3 +190,36 @@ fn test_iat(){
     }
 }
 ```
+
+### 4.信息隐藏(图片隐写)
+将生成的bin文件隐写到图片中，并提供读取图片中隐写的shellcode的函数。
+目前支持以下隐写方式：
+- luma_lsb隐写：lsb隐写到图片的luma分量，
+提供了以下两个函数：
+  - `hide_lsb(img_path:&str,bin_path:&str)`
+  - `read_lsb(img_path:&str)->Result<Vec<u8>,String>`
+  
+  示例：
+  ```
+  use shellcode-loader::stegano::{hide_lsb,read_lsb};
+    #[test]
+    fn test_lsb_hide(){
+        //要嵌入信息的图片路径
+        let img_path="D:/work/sample/gomekmidlodglbbmalcneegieacbdmki/virus/tools/Client/payload/img.jpg";
+        
+        //bin文件路径
+        let bin_path="D:/work/sample/gomekmidlodglbbmalcneegieacbdmki/virus/tools/Client/payload/payload_x64.bin";
+
+        hide_lsb(img_path, bin_path);
+    }
+    #[test]
+    fn test_lsb_read(){
+        //要提取信息的图片文件路径
+        let img_path="D:/work/sample/gomekmidlodglbbmalcneegieacbdmki/virus/bypass_study/library/shellcode-loader/output.png";
+        
+        let res=read_lsb(img_path).unwrap();
+
+        println!("{:?}",res);
+        callback(&res);
+    }
+  ```

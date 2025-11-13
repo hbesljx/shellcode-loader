@@ -83,7 +83,7 @@ unsafe fn find_exported_function(
     Err(Error::new(E_FAIL, HSTRING::from(error_message)))
 }
 
-fn get_module_address(dll: &str) -> Result<*mut c_void> {
+pub(crate) fn get_module_address(dll: &str) -> Result<*mut c_void> {
     unsafe {
         let peb = NtCurrentPeb();
         let ldr = (*peb).Ldr;
