@@ -1,1 +1,65 @@
-/target
+# 图片文件
+*.png
+*.jpg
+*.jpeg
+*.bmp
+*.gif
+*.tiff
+*.webp
+
+# 二进制/可执行文件
+*.bin
+shellcode.bin
+*.exe
+*.dll
+*.so
+*.dylib
+*.pdb
+*.ilk
+*.obj
+*.lib
+
+# 压缩包
+*.7z
+*.zip
+*.rar
+*.tar.gz
+
+# 构建输出目录
+/target/
+/build/
+/dist/
+/out/
+/temp/
+/tmp/
+
+# 测试/示例数据
+/test_data/
+/samples/
+/examples/
+/benchmarks/
+
+# IDE / 编辑器
+/.vscode/
+/.idea/
+*.swp
+*.swo
+*.rs.bk
+*.backup
+*.orig
+
+# 版本控制元数据
+/.git/
+/.github/
+
+# 文档
+/docs/
+/documentation/
+*.mdbook
+
+# 日志和临时文件
+*.log
+*.tmp
+
+# Rust 相关
+Cargo.lock
