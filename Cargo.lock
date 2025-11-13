@@ -971,8 +971,8 @@ name = "shellcode-loader"
 version = "0.8.0"
 dependencies = [
  "clap",
+ "image",
  "ntapi",
- "stegano-util",
  "sysinfo",
  "uuid",
  "windows 0.52.0",
@@ -1004,15 +1004,6 @@ name = "smallvec"
 version = "1.15.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "67b1b7a3b5fe4f1376887184045fcf45c69e92af734b7aaddc05fb777b6fbd03"
-
-[[package]]
-name = "stegano-util"
-version = "0.1.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "235f4df2412d57593b5808c0632817a472b0da6cb9a8c5425e298b4d8d8ef75c"
-dependencies = [
- "image",
-]
 
 [[package]]
 name = "strsim"
