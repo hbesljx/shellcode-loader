@@ -10,15 +10,15 @@ pub fn read_lsb(img_path:&str)->Result<Vec<u8>,String>{
     res
 }
 
-pub fn luma_lsb_hide(img_path:&str,bin_path:&str)->Result<(), &'static str>{
+pub(crate) fn luma_lsb_hide(img_path:&str,bin_path:&str)->Result<(), &'static str>{
     hide(img_path, bin_path)
 }
 
-pub fn luma_lsb_read(output_path:&str)->Result<Vec<u8>,String>{
+pub(crate) fn luma_lsb_read(output_path:&str)->Result<Vec<u8>,String>{
     read(output_path)
 }
 
-pub fn rgb_to_ycbcr(r: u8, g: u8, b: u8) -> (u8, u8, u8) {
+pub(crate) fn rgb_to_ycbcr(r: u8, g: u8, b: u8) -> (u8, u8, u8) {
     let y = ((66 * r as i32 + 129 * g as i32 + 25 * b as i32 + 128) >> 8) + 16;
     let cb = ((-38 * r as i32 - 74 * g as i32 + 112 * b as i32 + 128) >> 8) + 128;
     let cr = ((112 * r as i32 - 94 * g as i32 - 18 * b as i32 + 128) >> 8) + 128;
@@ -29,7 +29,7 @@ pub fn rgb_to_ycbcr(r: u8, g: u8, b: u8) -> (u8, u8, u8) {
     )
 }
 
-pub fn ycbcr_to_rgb(y: u8, cb: u8, cr: u8) -> (u8, u8, u8) {
+pub(crate) fn ycbcr_to_rgb(y: u8, cb: u8, cr: u8) -> (u8, u8, u8) {
     let y = y as i32 - 16;
     let cb = cb as i32 - 128;
     let cr = cr as i32 - 128;

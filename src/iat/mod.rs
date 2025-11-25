@@ -19,7 +19,7 @@ use windows::Win32::System::{
     },
 };
 
-pub(crate) fn get_function_address(dll_name: &str, function_name: &str) -> Result<*mut c_void> {
+pub fn get_function_address(dll_name: &str, function_name: &str) -> Result<*mut c_void> {
     unsafe {
         let dll_base = get_module_address(dll_name)?;
 

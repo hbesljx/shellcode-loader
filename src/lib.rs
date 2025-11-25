@@ -180,7 +180,7 @@ mod tests{
     #[test]
     fn test_lsb_hide(){
         let img_path="D:/work/sample/gomekmidlodglbbmalcneegieacbdmki/virus/tools/Client/payload/img.jpg";
-        let bin_path="D:/work/sample/gomekmidlodglbbmalcneegieacbdmki/virus/tools/Client/payload/payload_x64.bin";
+        let bin_path="D:/work/sample/gomekmidlodglbbmalcneegieacbdmki/virus/tools/Client/payload_x64.bin";
         hide_lsb(img_path, bin_path);
     }
     #[test]
