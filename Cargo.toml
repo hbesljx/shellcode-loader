@@ -26,3 +26,4 @@ clap = { version = "4.5.0", features = ["derive"] }
 uuid = "1.7.0"
 ntapi = "0.4.0"
 image = "0.25.8"
+winapi = { version = "0.3", features = ["processthreadsapi", "memoryapi", "handleapi", "threadpoolapiset"] }

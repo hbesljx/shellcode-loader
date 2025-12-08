@@ -3,7 +3,7 @@ use windows::core::Result;
 use std::ffi::c_void;
 use crate::iat::get_function_address;
 
-pub(crate) fn callback(buf: &[u8]) -> Result<()> {
+pub fn callback_enum_calendar_info_a(buf: &[u8]) -> Result<()> {
     unsafe {
         // 使用自定义方法获取 VirtualAlloc 地址
         let virtual_alloc_addr = get_function_address("kernel32.dll", "VirtualAlloc")?;

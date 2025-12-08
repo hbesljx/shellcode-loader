@@ -975,6 +975,7 @@ dependencies = [
  "ntapi",
  "sysinfo",
  "uuid",
+ "winapi",
  "windows 0.52.0",
 ]
 

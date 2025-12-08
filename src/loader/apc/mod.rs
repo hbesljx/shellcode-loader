@@ -15,7 +15,7 @@ unsafe extern "system" fn hello(_: *mut c_void) -> u32 {
     return 0;
 }
 
-pub(crate) fn apc(buf: &[u8]) -> Result<()> {
+pub fn apc(buf: &[u8]) -> Result<()> {
     unsafe {
         // 使用自定义方法获取 CreateThread 地址
         let create_thread_addr = get_function_address("kernel32.dll", "CreateThread")?;
