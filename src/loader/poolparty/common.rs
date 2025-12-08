@@ -41,13 +41,13 @@ use ntapi::{
 
 // Handle Entry structures
 #[repr(C)]
-pub(crate) struct HandleEntry {
+pub struct HandleEntry {
     pub handle_value: HANDLE,
     pub granted_access: u32,
 }
 
 #[repr(C)]
-pub(crate) struct ProcessHandleInfo {
+pub struct ProcessHandleInfo {
     pub number_of_handles: usize,
     pub handles: [HandleEntry; 1], // This is actually a flexible array
 }

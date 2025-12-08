@@ -5,7 +5,7 @@ use std::fmt;
 
 // 自定义错误类型
 #[derive(Debug)]
-pub(crate) struct InjectionError {
+pub struct InjectionError {
     pub reason: String,
 }
 
