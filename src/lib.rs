@@ -13,7 +13,14 @@ mod tests{
             apc::apc,
             callback::callback_enum_calendar_info_a,
         } ,
-        sandbox::is_sandbox};
+        sandbox::{
+            is_sandbox_sysinfo,
+            is_sandbox_cpuid,
+            is_sandbox_dns,
+            is_sandbox_sleep,
+            is_sandbox_usbstor,
+        }
+    };
     #[test]
     pub fn test_loader_apc(){
         //入参支持Vec<u8>和定长数组
@@ -92,7 +99,15 @@ mod tests{
         const MAX_PROCESS_COUNT:u32=100;
         const MAX_DISK_SIZE:u32=60;
 
-        println!("isSandbox?{}!",is_sandbox(MAX_CPU_COUNT, MAX_RAM_SIZE, MAX_PROCESS_COUNT, MAX_DISK_SIZE));
+        println!("isSandbox by sysinfo:{}",is_sandbox_sysinfo(MAX_CPU_COUNT, MAX_RAM_SIZE, MAX_PROCESS_COUNT, MAX_DISK_SIZE));
+        
+        println!("isSandbox by cpuid:{}",is_sandbox_cpuid());
+
+        println!("isSandbox by dns:{}",is_sandbox_dns());
+
+        println!("isSandbox by sleep:{}",is_sandbox_sleep());
+
+        println!("isSandbox by usbstor:{}",is_sandbox_usbstor());
     }
 
     #[test]

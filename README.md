@@ -159,9 +159,9 @@ fn test_poolparty_party_time_1(){
 
 ## 对抗操作：
 ### 1.沙箱检测
-通过CPU数量、RAM大小、进程数量、磁盘大小来判断是否为沙箱
+(1)通过CPU数量、RAM大小、进程数量、磁盘大小来判断是否为沙箱
 
-示例：沙箱检测：
+调用示例：
 ```
 use shellcode-loader::sandbox::is_sandbox;
 #[test]
@@ -171,8 +171,32 @@ fn test_is_sandbox(){
     const MAX_PROCESS_COUNT:u32=100;
     const MAX_DISK_SIZE:u32=60;
 
-    println!("isSandbox?{}!",shellcode_loader::sandbox::is_sandbox(MAX_CPU_COUNT, MAX_RAM_SIZE, MAX_PROCESS_COUNT, MAX_DISK_SIZE));
+    println!("isSandbox:{}",shellcode_loader::sandbox::is_sandbox(MAX_CPU_COUNT, MAX_RAM_SIZE, MAX_PROCESS_COUNT, MAX_DISK_SIZE));
 }
+```
+(2)通过cpuid的执行时间来检测沙箱环境
+调用示例：
+```
+use shellcode-loader::sandbox::is_sandbox_cpuid;
+println!("isSandbox:{}",is_sandbox_cpuid());
+```
+(3)通过虚假域名探测来检测沙箱环境
+调用示例：
+```
+use shellcode-loader::sandbox::is_sandbox_dns();
+println!("isSandbox:{}",is_sandbox_dns()());
+```
+(4)通过检查sleep函数的真实时间来检测沙箱环境
+调用示例：
+```
+use shellcode-loader::sandbox::is_sandbox_sleep();
+println!("isSandbox:{}",is_sandbox_sleep()());
+```
+(5)通过获取USB设备历史来检测沙箱环境
+调用示例：
+```
+use shellcode-loader::sandbox::is_sandbox_usbstor();
+println!("isSandbox:{}",is_sandbox_usbstor()());
 ```
 
 ### 2.obf混淆
